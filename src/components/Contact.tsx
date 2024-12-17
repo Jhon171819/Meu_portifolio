@@ -7,10 +7,39 @@ export default function Contact() {
     email: '',
     message: ''
   });
+  const [status, setStatus] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus('Sending...');
     
+    try {
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        mode: 'cors',
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setStatus('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setStatus('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setStatus('Failed to send message. Please try again.');
+    }
   };
 
   return (
@@ -66,6 +95,7 @@ export default function Contact() {
               <Send className="ml-2 w-4 h-4" />
             </button>
           </div>
+          {status && <p className="text-center text-sm text-gray-600">{status}</p>}
         </form>
       </div>
     </section>
