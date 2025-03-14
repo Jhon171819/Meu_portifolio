@@ -14,7 +14,7 @@ export default function Contact() {
     setStatus('Sending...');
     
     try {
-      const response = await fetch('http://localhost:3001/api/contact', {
+      const response = await fetch('https://jonathancostamoura-imofsf13.b4a.run/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
