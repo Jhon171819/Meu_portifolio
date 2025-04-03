@@ -14,7 +14,7 @@ export default function Contact() {
     setStatus('Sending...');
     
     try {
-      const response = await fetch('https://jonathancostamoura-imofsf13.b4a.run/api/contact', {
+      const response = await fetch('https://eb18edf4-e201-41d9-8869-d80b58a9e3ca-00-2jg76q2in5zvl.spock.replit.dev/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
